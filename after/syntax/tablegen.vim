@@ -14,7 +14,11 @@ syntax sync minlines=100
 
 syn case match
 
+<<<<<<< HEAD
 syn keyword tgKeyword   def let in code dag field include defm foreach defset defvar if then else assert dump
+=======
+syn keyword tgKeyword   def let in code dag field include defm foreach defset defvar if then else
+>>>>>>> 494184e (add llvm related configs)
 syn keyword tgType      class int string list bit bits multiclass
 
 syn match   tgNumber    /\<\d\+\>/
