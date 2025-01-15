@@ -1,11 +1,11 @@
-local function format_hunks()
+local function format_hunks(bufnr)
   local ignore_filetypes = { "lua" }
   if vim.tbl_contains(ignore_filetypes, vim.bo.filetype) then
     vim.notify("range formatting for " .. vim.bo.filetype .. " not working properly.")
     return
   end
 
-  local hunks = require("gitsigns").get_hunks()
+  local hunks = require("gitsigns").get_hunks(bufnr)
   if hunks == nil then
     return
   end
@@ -28,7 +28,7 @@ local function format_hunks()
       -- nvim_buf_get_lines uses zero-based indexing -> subtract from last
       local last_hunk_line = vim.api.nvim_buf_get_lines(0, last - 2, last - 1, true)[1]
       local range = { start = { start, 0 }, ["end"] = { last - 1, last_hunk_line:len() } }
-      format({ range = range, async = true, lsp_fallback = true }, function()
+      format({ range = range, async = true, lsp_fallback = true, bufnr = bufnr }, function()
         vim.defer_fn(function()
           format_range()
         end, 1)
@@ -62,7 +62,7 @@ return {
         priority = 100,
         primary = true,
         format = function(buf)
-          require("conform").format({ bufnr = buf })
+          format_hunks(buf)
         end,
         sources = function(buf)
           local ret = require("conform").list_formatters(buf)
@@ -75,38 +75,11 @@ return {
     end)
   end,
   opts = {
-    default_format_opts = {
-      timeout_ms = 3000,
-      async = false, -- not recommended to change
-      quiet = false, -- not recommended to change
-      lsp_format = "fallback", -- not recommended to change
-    },
     formatters_by_ft = {
       lua = { "stylua" },
       fish = { "fish_indent" },
       sh = { "shfmt" },
       cpp = { "clang-format" },
-    },
-    format_on_save = function()
-      -- Prefer to format git hunks instead of the entire file
-      format_hunks()
-    end,
-    -- The options you set here will be merged with the builtin formatters.
-    -- You can also define any custom formatters here.
-    ---@type table<string, conform.FormatterConfigOverride|fun(bufnr: integer): nil|conform.FormatterConfigOverride>
-    formatters = {
-      injected = { options = { ignore_errors = true } },
-      -- # Example of using dprint only when a dprint.json file is present
-      -- dprint = {
-      --   condition = function(ctx)
-      --     return vim.fs.find({ "dprint.json" }, { path = ctx.filename, upward = true })[1]
-      --   end,
-      -- },
-      --
-      -- # Example of using shfmt with extra args
-      -- shfmt = {
-      --   prepend_args = { "-i", "2", "-ci" },
-      -- },
     },
   },
 }
