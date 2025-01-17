@@ -43,11 +43,6 @@ if version >= 508 || !exists("did_c_syn_inits")
   endif
 
   HiLink mirSpecialComment SpecialComment
-<<<<<<< HEAD
-
-  delcommand HiLink
-=======
->>>>>>> 494184e (add llvm related configs)
 endif
 
 let b:current_syntax = "mir"
