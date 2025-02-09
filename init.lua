@@ -3,4 +3,3 @@ require("config.lazy")
 
 -- load other configurations
 require("config.usercmds")
-require("config.gui")
