@@ -71,7 +71,6 @@ return {
       fish = { "fish_indent" },
       sh = { "shfmt" },
       cpp = { "clang-format" },
-      tablegen = { "clang-format" },
     },
   },
 }
