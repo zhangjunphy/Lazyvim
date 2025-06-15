@@ -45,14 +45,6 @@ return {
     },
   },
   init = function ()
-    vim.api.nvim_create_autocmd("User", {
-      pattern = "LazyVimKeymaps",
-      once = true,
-      callback = function ()
-        pcall(vim.keymap.del, "n", "<leader>gs")
-        pcall(vim.keymap.del, "n", "<leader>gc")
-      end
-    })
   end,
   config = true
 }
