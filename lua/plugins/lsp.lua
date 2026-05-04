@@ -15,6 +15,7 @@ return {
         "--fallback-style=llvm",
         "-j 4"
       }
-    }
+    },
+    gdscript = {},
   },
 }
