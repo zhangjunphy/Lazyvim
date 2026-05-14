@@ -5,9 +5,14 @@ return {
     lazy=false,
   },
   {
-    "LazyVim/LazyVim",
-    opts = {
-      colorscheme = "catppuccin-latte"
-    }
+    "cormacrelf/dark-notify",
+    config = function()
+      require("dark_notify").run({
+        schemes = {
+          light = { colorscheme = "catppuccin-latte" },
+          dark = { colorscheme = "catppuccin-mocha" },
+        },
+      })
+    end,
   }
 }
