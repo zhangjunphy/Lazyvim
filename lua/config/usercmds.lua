@@ -1,4 +1,4 @@
-vim.api.nvim_create_user_command("CopyBreakPoint",
+vim.api.nvim_create_user_command("CopyFileLine",
   function()
     local root = LazyVim.root.get()
     local relative = vim.fn.expand("%:" .. root .. ":.")
