@@ -2,17 +2,19 @@ return {
   {
     "catppuccin/nvim",
     name="catppuccin",
+    opts = {
+      flavour="auto",
+      background={
+        light="latte",
+        dark="mocha"
+      },
+    },
     lazy=false,
   },
   {
-    "cormacrelf/dark-notify",
-    config = function()
-      require("dark_notify").run({
-        schemes = {
-          light = { colorscheme = "catppuccin-latte" },
-          dark = { colorscheme = "catppuccin-mocha" },
-        },
-      })
-    end,
+    "LazyVim/LazyVim",
+    opts = {
+      colorscheme = "catppuccin",
+    },
   }
 }
